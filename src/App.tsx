@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Copy } from "lucide-react";
+import { Copy, Zap } from "lucide-react";
 import { StepData } from "@/data/step-data";
 import { TourinWeb, useTourinWeb, type TourinStep } from "tourin-web";
 
@@ -26,7 +26,7 @@ function App() {
             </div>
           </div>
 
-          <nav className="flex items-center gap-4">
+          <nav className="flex items-center gap-2">
             <Button
               className="ml-2"
               size="sm"
@@ -39,6 +39,20 @@ function App() {
               }
             >
               Get Started
+            </Button>
+            <Button
+              className="ml-2"
+              size="sm"
+              onClick={() =>
+                window.open(
+                  "https://stackblitz.com/edit/tourin-web",
+                  "_blank",
+                  "noopener,noreferrer"
+                )
+              }
+            >
+              Stackblitz
+              <Zap />
             </Button>
           </nav>
         </header>
