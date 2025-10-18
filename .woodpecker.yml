@@ -1,0 +1,16 @@
+steps:
+  build:
+    image: node:24
+    commands:
+      - npm ci
+      - npm run build
+
+  deploy:
+    image: docker:27-dind
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    commands:
+      - cd /srv/apps/tourin-web-landing
+      - git pull origin main || true
+      - docker compose down
+      - docker compose up -d --build
