@@ -10,6 +10,7 @@ steps:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     commands:
+      - mkdir -p /srv/apps/tourin-web-landing
       - cd /srv/apps/tourin-web-landing
       - git pull origin main || true
       - docker compose down
