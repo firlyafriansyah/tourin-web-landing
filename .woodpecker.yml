@@ -25,9 +25,10 @@ steps:
               timeout: 10s
               retries: 3
               start_period: 10s
-          networks:
-            proxy:
-              external: true
-          EOF
+        networks:
+          proxy:
+            external: true
+        EOF
+
       - docker compose -f docker-compose.yml down || true
       - docker compose -f docker-compose.yml up -d
