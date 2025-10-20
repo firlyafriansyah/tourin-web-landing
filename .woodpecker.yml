@@ -5,14 +5,14 @@ steps:
       - /var/run/docker.sock:/var/run/docker.sock
     commands:
       - docker build -t tourin-web-landing:latest .
-      - mkdir -p /srv/apps/touring-web-landing
+      - mkdir -p /srv/apps/tourin-web-landing
       - cd /srv/apps/tourin-web-landing
       - |
         cat <<'EOF' > docker-compose.yml
         services:
           app:
-            image: touring-web-landing:latest
-            container_name: touring-web-landing
+            image: tourin-web-landing:latest
+            container_name: tourin-web-landing
             restart: always
             networks:
               - proxy
