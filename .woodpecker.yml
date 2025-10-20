@@ -1,10 +1,32 @@
 steps:
-  deploy:
-    image: docker:27-dind
+  build:
+    image: docker:27
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     commands:
+      - docker build -t tourin-web-landing:latest .
+      - mkdir -p /srv/apps/touring-web-landing
       - cd /srv/apps/tourin-web-landing
-      - git pull origin main || true
-      - docker compose down
-      - docker compose up -d --build
+      - |
+        cat <<'EOF' > docker-compose.yml
+        services:
+          app:
+            image: touring-web-landing:latest
+            container_name: touring-web-landing
+            restart: always
+            networks:
+              - proxy
+            expose:
+              - "80"
+            healthcheck:
+              test: ["CMD", "wget", "--spider", "-q", "http://localhost:3000"]
+              interval: 30s
+              timeout: 10s
+              retries: 3
+              start_period: 10s
+          networks:
+            proxy:
+              external: true
+          EOF
+      - docker compose -f docker-compose.yml down || true
+      - docker compose -f docker-compose.yml up -d
