@@ -32,3 +32,10 @@ steps:
 
       - docker compose down || true
       - docker compose up -d
+
+    when:
+      event:
+        - push
+        - tag
+      branch:
+        - main
